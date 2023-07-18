@@ -1,5 +1,6 @@
 import './App.css';
 import PasswordInput from './components/PasswordInput';
+import SignInButton from './components/SignInButton';
 import UsernameInput from './components/UsernameInput';
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
     <div className='App'>
       <UsernameInput />
       <PasswordInput />
+      <SignInButton />
     </div>
   );
 }
