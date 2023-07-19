@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
+import Axios from 'axios'
+import UsernameInput from './UsernameInput';
 
 interface UserState {
   user: {
@@ -10,22 +11,28 @@ interface UserState {
 }
 
 const SignInButton = () => {
-  const [disabled, setDisabled] = useState(true);
   const user = useSelector((state: UserState) => state.user);
 
-  useEffect(() => {
-    isDisabled();
-  }, [user]);
+  const handleClick = () => {
+    Axios.get('http://localhost:5000/users', {
+        params:
+        
+    })
+    if (user.username === 'Luke' && user.password === 'Skywalker')
+  }
 
-  const isDisabled = () => {
-    if (user.username === '' || user.password === '') {
-      setDisabled(true);
-    } else {
-      setDisabled(false);
-    }
-  };
-
-  return <Button disabled={disabled}>Sign In</Button>;
+  return (
+    <div>
+      <Button
+        variant='contained'
+        disabled={user.username === '' || user.password === ''}
+        onClick={}
+        style={{ marginTop: '1rem', width: '14rem' }}
+      >
+        Sign In
+      </Button>
+    </div>
+  );
 };
 
 export default SignInButton;

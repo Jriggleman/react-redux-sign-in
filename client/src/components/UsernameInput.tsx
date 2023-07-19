@@ -17,7 +17,7 @@ const UsernameInput = () => {
         label='Username'
         variant='outlined'
         onChange={handleUsernameChange}
-        margin='dense'
+        style={{ marginTop: '1rem', width: '14rem' }}
       />
     </div>
   );

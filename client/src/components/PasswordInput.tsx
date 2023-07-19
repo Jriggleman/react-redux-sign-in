@@ -17,7 +17,7 @@ const PasswordInput = () => {
         label='Password'
         variant='outlined'
         onChange={handlePasswordChange}
-        margin='dense'
+        style={{ marginTop: '1rem', width: '14rem' }}
       />
     </div>
   );
