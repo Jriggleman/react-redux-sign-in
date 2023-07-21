@@ -1,13 +1,13 @@
-import UsernameInput from './common/UsernameInput';
-import PasswordInput from './common/PasswordInput';
-import SignInButton from './SignInButton';
+import UsernameInput from '../components/common/UsernameInput';
+import PasswordInput from '../components/common/PasswordInput';
+import SignInButton from '../components/SignInButton';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 
 const StyledBox = styled(Box)(({ theme }) => ({
-  background: 'rgba(173, 216, 230, 0.75)', // Soft blue color with 0.2 opacity
+  background: 'rgba(173, 216, 230, 0.75)',
 }));
 
 const SignInPage = () => {

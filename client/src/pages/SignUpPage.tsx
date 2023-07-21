@@ -1,6 +1,7 @@
-import UsernameInput from './common/UsernameInput';
-import PasswordInput from './common/PasswordInput';
-import SignUpButton from './SignUpButton';
+import UsernameInput from '../components/common/UsernameInput';
+import PasswordInput from '../components/common/PasswordInput';
+import EmailInput from '../components/EmailInput';
+import SignUpButton from '../components/SignUpButton';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Box from '@mui/material/Box';
@@ -18,6 +19,7 @@ const SignUpPage = () => {
           <CardContent>
             <UsernameInput />
             <PasswordInput />
+            <EmailInput />
             <SignUpButton />
           </CardContent>
         </Card>
