@@ -6,6 +6,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
+import { Link } from 'react-router-dom';
 
 const StyledBox = styled(Box)(({ theme }) => ({
   background: 'rgba(173, 216, 230, 0.75)',
@@ -22,6 +23,9 @@ const SignUpPage = () => {
             <PasswordInput />
             <EmailInput />
             <SignUpButton />
+            <p>
+              Already have an account? <Link to='/'>Sign In</Link>
+            </p>
           </CardContent>
         </Card>
       </Box>

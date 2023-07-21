@@ -23,7 +23,7 @@ const SignUpButton = () => {
         onClick={handleClick}
         style={{ marginTop: '1rem', width: '14rem' }}
       >
-        Sign In
+        Sign Up
       </Button>
       {signInMessage && <p>{signInMessage}</p>}
     </div>

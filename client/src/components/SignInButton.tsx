@@ -32,11 +32,10 @@ const SignInButton = () => {
         } else {
           dispatch(setError(true));
           dispatch(setPassword(''));
-          setSignInMessage('Sign in Failed');
         }
       })
       .catch((error) => {
-        setSignInMessage('Problem signing in');
+        alert('Problem signing in');
       });
   };
 
