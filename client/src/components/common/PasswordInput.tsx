@@ -28,6 +28,7 @@ const PasswordInput = () => {
         variant='outlined'
         autoComplete='current-password'
         error={error}
+        helperText={error ? 'Incorrect username or password' : ''}
         onChange={handlePasswordChange}
         style={{ marginTop: '1rem', width: '14rem' }}
       />
