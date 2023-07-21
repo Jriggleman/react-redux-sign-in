@@ -1,6 +1,6 @@
 import { TextField } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { setUsername } from '../features/user';
+import { setUsername } from '../../features/user';
 import { ChangeEvent } from 'react';
 
 const UsernameInput = () => {

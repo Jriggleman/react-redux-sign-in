@@ -10,29 +10,11 @@ interface UserState {
   };
 }
 
-const SignInButton = () => {
+const SignUpButton = () => {
   const user = useSelector((state: UserState) => state.user);
   const [signInMessage, setSignInMessage] = useState('');
 
-  const handleClick = () => {
-    Axios.get('http://localhost:5000/users', {
-      params: {
-        username: user.username,
-        password: user.password,
-      },
-    })
-      .then((response) => {
-        if (user.username === response.data.username && user.password === response.data.password) {
-          setSignInMessage('Sign in Successful');
-        } else {
-          setSignInMessage('Sign in Failed');
-        }
-      })
-      .catch((error) => {
-        setSignInMessage('Problem signing in');
-      });
-  };
-
+  const handleClick = () => {};
   return (
     <div>
       <Button
@@ -48,4 +30,4 @@ const SignInButton = () => {
   );
 };
 
-export default SignInButton;
+export default SignUpButton;
