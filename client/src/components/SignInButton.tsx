@@ -4,6 +4,7 @@ import Axios from 'axios';
 import { useState } from 'react';
 import { setError } from '../features/error';
 import { useDispatch } from 'react-redux';
+import { setPassword } from '../features/user';
 
 interface UserState {
   user: {
@@ -30,6 +31,7 @@ const SignInButton = () => {
           setSignInMessage('Sign in Successful');
         } else {
           dispatch(setError(true));
+          dispatch(setPassword(''));
           setSignInMessage('Sign in Failed');
         }
       })

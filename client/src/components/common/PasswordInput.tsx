@@ -2,7 +2,7 @@ import { TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPassword } from '../../features/user';
 import { setError } from '../../features/error';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 interface ErrorState {
   error: {
@@ -10,9 +10,16 @@ interface ErrorState {
   };
 }
 
+interface UserState {
+  user: {
+    password: string;
+  };
+}
+
 const PasswordInput = () => {
   const dispatch = useDispatch();
   const error = useSelector((state: ErrorState) => state.error.error);
+  const password = useSelector((state: UserState) => state.user.password);
 
   const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
     dispatch(setPassword(event.target.value));
@@ -22,6 +29,7 @@ const PasswordInput = () => {
   return (
     <div>
       <TextField
+        value={password}
         id='outlined-password-inpout'
         label='Password'
         type='password'
