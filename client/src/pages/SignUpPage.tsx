@@ -17,6 +17,7 @@ const SignUpPage = () => {
       <Box display='flex' justifyContent='center' alignItems='center' minHeight='100vh'>
         <Card>
           <CardContent>
+            <h1>Sign Up</h1>
             <UsernameInput />
             <PasswordInput />
             <EmailInput />
