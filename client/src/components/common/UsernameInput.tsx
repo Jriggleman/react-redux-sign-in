@@ -1,6 +1,7 @@
 import { TextField } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { setUsername } from '../../features/user';
+import { setError } from '../../features/error';
 import { ChangeEvent } from 'react';
 
 const UsernameInput = () => {
@@ -8,6 +9,7 @@ const UsernameInput = () => {
 
   const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
     dispatch(setUsername(event.target.value));
+    dispatch(setError(false));
   };
 
   return (

@@ -2,6 +2,8 @@ import { useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
 import Axios from 'axios';
 import { useState } from 'react';
+import { setError } from '../features/error';
+import { useDispatch } from 'react-redux';
 
 interface UserState {
   user: {
@@ -11,6 +13,7 @@ interface UserState {
 }
 
 const SignInButton = () => {
+  const dispatch = useDispatch();
   const user = useSelector((state: UserState) => state.user);
   const [signInMessage, setSignInMessage] = useState('');
 
@@ -23,8 +26,10 @@ const SignInButton = () => {
     })
       .then((response) => {
         if (user.username === response.data.username && user.password === response.data.password) {
+          dispatch(setError(false));
           setSignInMessage('Sign in Successful');
         } else {
+          dispatch(setError(true));
           setSignInMessage('Sign in Failed');
         }
       })
