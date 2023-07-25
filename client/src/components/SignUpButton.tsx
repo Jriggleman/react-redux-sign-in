@@ -15,7 +15,7 @@ const SignUpButton = () => {
   const user = useSelector((state: UserState) => state.user);
 
   const handleClick = () => {
-    Axios.post('http://localhost:5000/users/create', {
+    Axios.post('http://localhost:5000/users/signup', {
       username: user.username,
       password: user.password,
       email: user.email,

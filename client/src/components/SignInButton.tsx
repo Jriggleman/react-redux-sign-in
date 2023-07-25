@@ -1,10 +1,10 @@
 import { useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
 import Axios from 'axios';
-import { useState } from 'react';
 import { setError } from '../features/error';
 import { useDispatch } from 'react-redux';
 import { setPassword } from '../features/user';
+import { useNavigate } from 'react-router-dom';
 
 interface UserState {
   user: {
@@ -16,26 +16,22 @@ interface UserState {
 const SignInButton = () => {
   const dispatch = useDispatch();
   const user = useSelector((state: UserState) => state.user);
-  const [signInMessage, setSignInMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleClick = () => {
-    Axios.get('http://localhost:5000/users', {
-      params: {
-        username: user.username,
-        password: user.password,
-      },
+    Axios.post('http://localhost:5000/users/signin', {
+      username: user.username,
+      password: user.password,
     })
       .then((response) => {
-        if (user.username === response.data.username && user.password === response.data.password) {
-          dispatch(setError(false));
-          setSignInMessage('Sign in Successful');
-        } else {
-          dispatch(setError(true));
-          dispatch(setPassword(''));
-        }
+        const { message } = response.data;
+        dispatch(setError(false));
+        console.log(message);
+        navigate('/profile');
       })
-      .catch((error) => {
-        alert('Problem signing in');
+      .catch(() => {
+        dispatch(setError(true));
+        dispatch(setPassword(''));
       });
   };
 
@@ -49,7 +45,6 @@ const SignInButton = () => {
       >
         Sign In
       </Button>
-      {signInMessage && <p>{signInMessage}</p>}
     </div>
   );
 };

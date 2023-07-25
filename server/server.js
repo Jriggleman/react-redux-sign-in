@@ -13,17 +13,17 @@ const client = new MongoClient(uri);
 
 //sign up user unless username already exsists in database
 //TODO: probably should make this happen with email too
-app.post('/users/create', async (req, res) => {
+app.post('/users/signup', async (req, res) => {
     try {
         const {username, password, email} = req.body;
         await client.connect()
 
-        const isUsernameTaken = await CheckUsernameAvailability(client, username)
+        const isUsernameTaken = await checkUsernameAvailability(client, username)
         if (isUsernameTaken) {
             return res.status(409).json({ message: 'Username is already taken' });
         }
         else {
-            await CreateUser(client, username, password, email)
+            await createUser(client, username, password, email)
             return res.status(200).json({message: 'Sign up successful'})
         }
 
@@ -35,15 +35,36 @@ app.post('/users/create', async (req, res) => {
 });
 
 //sign in user
-app.get('/users', async (req, res) => {
+app.post('/users/signin', async (req, res) => {
+    try {
+        const {username, password} = req.body;
+        await client.connect();
 
+        const user = await signInUser(client, username, password);
+
+        if (user) {
+            return res.status(200).json({message: 'Sign in successful'})
+        }
+        else {
+            return res.status(401).json({message: 'Invalid username or password'})
+        }
+    } catch (error) {
+        console.log(error);
+    } finally {
+        await client.close();
+    }
 });
 
-const CreateUser = async (client, username, password, email) => {
+const signInUser = async (client, username, password) => {
+    const result = await client.db('users').collection('login-credentials').findOne({ username, password });
+    return result;
+}
+
+const createUser = async (client, username, password, email) => {
     await client.db('users').collection('login-credentials').insertOne({username: username, password: password, email: email});
 }
 
-const CheckUsernameAvailability = async (client, username) => {
+const checkUsernameAvailability = async (client, username) => {
     const result = await client.db('users').collection('login-credentials').findOne({username: username});
 
     return result !== null;
