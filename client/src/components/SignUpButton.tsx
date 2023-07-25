@@ -1,7 +1,6 @@
 import { useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
 import Axios from 'axios';
-import { useState } from 'react';
 
 interface UserState {
   user: {

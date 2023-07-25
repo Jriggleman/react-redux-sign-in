@@ -30,7 +30,7 @@ const PasswordInput = () => {
     <div>
       <TextField
         value={password}
-        id='outlined-password-inpout'
+        id='outlined-password-input'
         label='Password'
         type='password'
         variant='outlined'

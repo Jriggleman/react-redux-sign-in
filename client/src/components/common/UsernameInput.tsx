@@ -15,7 +15,7 @@ const UsernameInput = () => {
   return (
     <div>
       <TextField
-        id='outlined-basic'
+        id='outlined-username-input'
         label='Username'
         variant='outlined'
         onChange={handleUsernameChange}
