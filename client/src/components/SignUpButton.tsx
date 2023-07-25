@@ -7,14 +7,27 @@ interface UserState {
   user: {
     username: string;
     password: string;
+    email: string;
   };
 }
 
 const SignUpButton = () => {
   const user = useSelector((state: UserState) => state.user);
-  const [signInMessage, setSignInMessage] = useState('');
 
-  const handleClick = () => {};
+  const handleClick = () => {
+    Axios.post('http://localhost:5000/users/create', {
+      username: user.username,
+      password: user.password,
+      email: user.email,
+    })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error('Error creating user:', error);
+      });
+  };
+
   return (
     <div>
       <Button
@@ -25,7 +38,6 @@ const SignUpButton = () => {
       >
         Sign Up
       </Button>
-      {signInMessage && <p>{signInMessage}</p>}
     </div>
   );
 };
