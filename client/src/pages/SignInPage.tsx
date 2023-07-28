@@ -8,6 +8,8 @@ import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setPassword, setUsername } from '../features/user';
+import { useNavigate } from 'react-router-dom';
+import { GoogleLogin } from '@react-oauth/google';
 
 const StyledBox = styled(Box)(({ theme }) => ({
   background: 'rgba(173, 216, 230, 0.75)',
@@ -19,6 +21,7 @@ const CenteredCardContent = styled(CardContent)({
 
 const SignInPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleClick = () => {
     dispatch(setUsername(''));
@@ -40,6 +43,15 @@ const SignInPage = () => {
                 Sign Up
               </Link>
             </p>
+            <GoogleLogin
+              onSuccess={(credentialResponse) => {
+                navigate('/profile');
+                console.log(credentialResponse);
+              }}
+              onError={() => {
+                console.log('Login Failed');
+              }}
+            />
           </CenteredCardContent>
         </Card>
       </Box>
