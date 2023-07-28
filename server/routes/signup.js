@@ -1,16 +1,25 @@
 const express = require('express');
 const router = express.Router();
 const { MongoClient } = require('mongodb');
+const mongoose = require('mongoose');
+const User = require('../models/User');
 
-const uri = 'mongodb+srv://jriggleman16:c6m8rehj@cluster0.cfxwc0c.mongodb.net/?retryWrites=true&w=majority';
-const client = new MongoClient(uri);
+mongoose.connect('mongodb+srv://jriggleman16:c6m8rehj@cluster0.cfxwc0c.mongodb.net/users?retryWrites=true&w=majority')
 
-const createUser = async (client, username, password, email) => {
-    await client.db('users').collection('login-credentials').insertOne({username: username, password: password, email: email});
-}
+const createUser = async (username, password, email) => {
+    try {
+      const newUser = new User({ username, password, email });
+      const savedUser = await newUser.save();
+      return savedUser;
+    } catch (error) {
+      // Handle error if needed
+      console.error('Error creating user:', error);
+      throw error;
+    }
+  };
 
-const checkUsernameAvailability = async (client, username) => {
-    const result = await client.db('users').collection('login-credentials').findOne({username: username});
+const checkUsernameAvailability = async (username) => {
+    const result = await User.findOne({ username });
 
     return result !== null;
 }
@@ -20,21 +29,18 @@ const checkUsernameAvailability = async (client, username) => {
 router.post('/', async (req, res) => {
     try {
         const {username, password, email} = req.body;
-        await client.connect()
 
-        const isUsernameTaken = await checkUsernameAvailability(client, username)
+        const isUsernameTaken = await checkUsernameAvailability(username)
         if (isUsernameTaken) {
             return res.status(409).json({ message: 'Username is already taken' });
         }
         else {
-            await createUser(client, username, password, email)
+            await createUser(username, password, email)
             return res.status(200).json({message: 'Sign up successful'})
         }
 
     } catch (error) {
-        console.log(error)
-    } finally {
-        await client.close()
+        return res.status(500).json({ message: 'Internal server error' });
     }
 });
 
