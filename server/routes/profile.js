@@ -1,6 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const { MongoClient } = require('mongodb');
+const mongoose = require('mongoose');
+const User = require('../models/User');
 
-const uri = 'mongodb+srv://jriggleman16:c6m8rehj@cluster0.cfxwc0c.mongodb.net/?retryWrites=true&w=majority'
-const client = new MongoClient(uri);
+mongoose.connect('mongodb+srv://jriggleman16:c6m8rehj@cluster0.cfxwc0c.mongodb.net/users?retryWrites=true&w=majority')
+
+//display user data
+router.post('/', (req, res) => {
+    
+})
