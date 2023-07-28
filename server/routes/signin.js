@@ -1,17 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const { MongoClient } = require('mongodb');
+const mongoose = require('mongoose');
+const User = require('../models/User');
 
-const uri = 'mongodb+srv://jriggleman16:c6m8rehj@cluster0.cfxwc0c.mongodb.net/?retryWrites=true&w=majority'
-const client = new MongoClient(uri);
+mongoose.connect('mongodb+srv://jriggleman16:c6m8rehj@cluster0.cfxwc0c.mongodb.net/users?retryWrites=true&w=majority')
 
 //sign in user
 router.post('/', async (req, res) => {
     try {
         const {username, password} = req.body;
-        await client.connect();
 
-        const user = await signInUser(client, username, password);
+        const user = await signInUser(username, password);
 
         if (user) {
             return res.status(200).json({message: 'Sign in successful'})
@@ -21,13 +21,11 @@ router.post('/', async (req, res) => {
         }
     } catch (error) {
         console.log(error);
-    } finally {
-        await client.close();
     }
 });
 
-const signInUser = async (client, username, password) => {
-    const result = await client.db('users').collection('login-credentials').findOne({ username, password });
+const signInUser = async (username, password) => {
+    const result = await User.findOne({ username, password });
     return result;
 }
 
