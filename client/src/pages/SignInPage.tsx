@@ -44,6 +44,7 @@ const SignInPage = () => {
               </Link>
             </p>
             <GoogleLogin
+              width={'230px'}
               onSuccess={(credentialResponse) => {
                 navigate('/profile');
                 console.log(credentialResponse);
